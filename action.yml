@@ -1,10 +1,16 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'google-chat-notification'
+description: 'Google Chat Notification for GitHub Actions'
+author: 'Co-qn'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  name:
+    description: 'job name.'
+    required: true
+  url:
+    description: 'google chat webhook url.'
+    required: true
+  status:
+    description: 'job status.'
+    required: true
 runs:
   using: 'node12'
   main: 'lib/main.js'

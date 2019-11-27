@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "google-chat-notification",
+  "version": "0.1.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Google Chat Notification for GitHub Actions",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -17,14 +17,17 @@
     "node",
     "setup"
   ],
-  "author": "YourNameOrOrganization",
+  "author": "Co-qn",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.0.0"
+    "@actions/core": "^1.0.0",
+    "@actions/github": "^1.0.0",
+    "axios": "^0.19.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
     "@types/node": "^12.0.4",
+    "@types/axios": "^0.14.0",
     "jest": "^24.8.0",
     "jest-circus": "^24.7.1",
     "ts-jest": "^24.0.2",
