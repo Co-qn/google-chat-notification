@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "description": "Google Chat Notification for GitHub Actions",
-  "main": "lib/main.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "ncc build src/main.ts",
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/Co-qn/google-chat-notification"
   },
   "keywords": [
     "actions",
