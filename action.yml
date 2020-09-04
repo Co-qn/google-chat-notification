@@ -1,5 +1,5 @@
 name: 'google-chat-notification'
-description: 'Google Chat Notification for GitHub Actions'
+description: 'Google Chat Notification for GitHub Actions extended with Release info'
 author: 'Co-qn'
 inputs:
   name:
@@ -11,6 +11,9 @@ inputs:
   status:
     description: 'job status.'
     required: true
+  releaseInfo:
+    description: 'Release information'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
