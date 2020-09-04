@@ -1,4 +1,4 @@
-name: 'google-chat-notification'
+name: 'google-chat-release-notifier'
 description: 'Google Chat Notification for GitHub Actions extended with Release info'
 author: 'Co-qn'
 inputs:
