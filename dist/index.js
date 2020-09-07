@@ -3373,9 +3373,9 @@ function run() {
             const name = core.getInput('name', { required: true });
             const url = core.getInput('url', { required: true });
             const status = JobStatus.parse(core.getInput('status', { required: true }));
-            const releaseInfo = core.getInput('releaseInfo', { required: false }) || '';
+            const info = core.getInput('info', { required: false }) || '';
             core.debug(`input params: name=${name}, status=${status}, url=${url}`);
-            yield GoogleChat.notify(name, url, status, releaseInfo);
+            yield GoogleChat.notify(name, url, status, info);
             console.info('Sent message.');
         }
         catch (error) {
@@ -5437,7 +5437,7 @@ const textButton = (text, url) => ({
         onClick: { openLink: { url } }
     }
 });
-function notify(name, url, status, releaseInfo) {
+function notify(name, url, status, info) {
     return __awaiter(this, void 0, void 0, function* () {
         const { owner, repo } = github.context.repo;
         const { eventName, sha, ref } = github.context;
@@ -5484,7 +5484,7 @@ function notify(name, url, status, releaseInfo) {
                                 }]
                         },
                         {
-                            textParagraph: `${releaseInfo}`
+                            textParagraph: `${info}`
                         }
                     ]
                 }]

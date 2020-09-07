@@ -11,7 +11,7 @@ inputs:
   status:
     description: 'job status.'
     required: true
-  releaseInfo:
+  info:
     description: 'Release information'
     required: false
 runs:

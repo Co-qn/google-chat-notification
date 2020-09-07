@@ -21,7 +21,7 @@ const textButton = (text: string, url: string) => ({
   }
 });
 
-export async function notify(name: string, url: string, status: Status, releaseInfo: string) {
+export async function notify(name: string, url: string, status: Status, info: string) {
   const { owner, repo } = github.context.repo;
   const { eventName, sha, ref } = github.context;
   const { number } = github.context.issue;
@@ -68,7 +68,7 @@ export async function notify(name: string, url: string, status: Status, releaseI
           }]
         },
         {
-          textParagraph: `${releaseInfo}`
+          textParagraph: `${info}`
         }
       ]
     }]
