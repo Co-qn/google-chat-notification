@@ -45,39 +45,16 @@ export async function notify(name: string, url: string, status: Status, artifact
           widgets: [
             {
               "textParagraph": {
-                "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}<br><b>Artifact:</b> <a href="${artifactUrl}">${artifactUrl}</a>`
+                "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br>
+                        <b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br>
+                        <b>Event:</b> ${eventName}<br><b>Artifact:</b> <a href="${artifactUrl}">${artifactUrl}</a>`
               }
             },
             {
               buttons: [textButton("JOB DETAILS", jobUrl)]
             }
           ]
-        },
-        
-        // {
-        //   widgets: [
-        //     {
-        //       "textParagraph": {
-        //         "text": `<b>Artifact</b> <br> <a href="${artifactUrl}">${artifactUrl}</a>`
-        //       }
-        //     }
-        //   ]
-        // },
-        // {
-        //   widgets: [
-        //     {
-        //     keyValue: {
-        //       topLabel: "Order No.",
-        //       content: 'JobID',
-        //       button: textButton("DETAILS", jobUrl)
-        //     }
-        //   ]
-        // },
-        // {
-        //   widgets: [{
-        //     buttons: [textButton("JOB DETAILS", jobUrl)]
-        //   }]
-        // }
+        }
       ]
     }]
   };
