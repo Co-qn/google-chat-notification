@@ -54,13 +54,6 @@ export async function notify(name: string, url: string, status: Status, artifact
             },
             {
               keyValue: { topLabel: "commit", content: sha }
-            },
-            {
-              keyValue: {
-                topLabel: "artifact",
-                content: 'S3',
-                button: textButton("DOWNLOAD", artifactUrl)
-              }
             }
           ]
         },

@@ -2506,13 +2506,6 @@ function notify(name, url, status, artifactUrl) {
                                 },
                                 {
                                     keyValue: { topLabel: "commit", content: sha }
-                                },
-                                {
-                                    keyValue: {
-                                        topLabel: "artifact",
-                                        content: 'S3',
-                                        button: textButton("DOWNLOAD", artifactUrl)
-                                    }
                                 }
                             ]
                         },
