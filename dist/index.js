@@ -2484,6 +2484,12 @@ function notify(name, url, status, artifactUrl) {
         const checksUrl = `${repoUrl}${eventPath}/checks`;
         const body = {
             cards: [{
+                    "header": {
+                        "title": "Pizza Bot Customer Support",
+                        "subtitle": "pizzabot@example.com",
+                        "imageUrl": "https://goo.gl/aeDtrS",
+                        "imageStyle": "IMAGE"
+                    },
                     sections: [
                         {
                             widgets: [{

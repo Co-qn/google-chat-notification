@@ -32,6 +32,13 @@ export async function notify(name: string, url: string, status: Status, artifact
 
   const body = {
     cards: [{
+      
+        "header": {
+          "title": "Pizza Bot Customer Support",
+          "subtitle": "pizzabot@example.com",
+          "imageUrl": "https://goo.gl/aeDtrS",
+          "imageStyle": "IMAGE"
+        },
       sections: [
         {
           widgets: [{
