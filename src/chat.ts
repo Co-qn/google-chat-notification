@@ -56,7 +56,7 @@ export async function notify(name: string, url: string, status: Status, artifact
             },
             {
               "textParagraph": {
-                "text": `<b>Artifact</b> <br> <a href="${artifactUrl}>artifactUrl</a>"`
+                "text": `<b>Artifact</b> <br> <a href="${artifactUrl}">artifactUrl</a>`
               }
             }
             // {

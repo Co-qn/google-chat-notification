@@ -2507,7 +2507,7 @@ function notify(name, url, status, artifactUrl) {
                                 },
                                 {
                                     "textParagraph": {
-                                        "text": `<b>Artifact</b> <br> <a href="${artifactUrl}>artifactUrl</a>"`
+                                        "text": `<b>Artifact</b> <br> <a href="${artifactUrl}">artifactUrl</a>`
                                     }
                                 }
                                 // {
