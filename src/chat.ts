@@ -46,16 +46,16 @@ export async function notify(name: string, url: string, status: Status, artifact
               keyValue: {
                 topLabel: "Download",
                 content: artifactUrl,
-                button: textButton("OPEN EVENT", artifactUrl)
+                button: textButton("OPEN EVENT", eventUrl)
               }
             },
-            // {
-            //   keyValue: {
-            //     topLabel: "event name",
-            //     content: eventName,
-            //     button: textButton("OPEN EVENT", eventUrl)
-            //   }
-            // },
+            {
+              keyValue: {
+                topLabel: "event name",
+                content: eventName,
+                button: textButton("OPEN EVENT", eventUrl)
+              }
+            },
             {
               keyValue: { topLabel: "ref", content: ref }
             },
