@@ -2502,7 +2502,7 @@ function notify(name, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     "textParagraph": {
-                                        "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><i>Violets</i> are <font color=\"#0000ff\">blue</font>`
+                                        "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><b>Status</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font>`
                                     }
                                 },
                                 {
@@ -2518,13 +2518,13 @@ function notify(name, url, status, artifactUrl) {
                                         content: eventName,
                                         button: textButton("OPEN EVENT", eventUrl)
                                     }
-                                },
-                                {
-                                    keyValue: { topLabel: "status", content: `<b> <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>` }
-                                },
-                                {
-                                    keyValue: { topLabel: "commit-id", content: sha.substring(0, 8) }
                                 }
+                                // {
+                                //   keyValue: { topLabel: "status", content: `<b> <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>` }
+                                // },
+                                // {
+                                //   keyValue: { topLabel: "commit-id", content: sha.substring(0, 8) }
+                                // }
                             ]
                         },
                         {
