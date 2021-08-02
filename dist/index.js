@@ -2501,8 +2501,8 @@ function notify(name, url, status, artifactUrl) {
                                 },
                                 {
                                     "keyValue": {
-                                        "topLabel": "Order No.",
-                                        "content": "<a href='www.google.it'>aaa</a>"
+                                        "topLabel": "Artifact",
+                                        "content": `<a href="${artifactUrl}">${artifactUrl}</a>`
                                     }
                                 },
                                 {

@@ -50,8 +50,8 @@ export async function notify(name: string, url: string, status: Status, artifact
             },
             {
               "keyValue": {
-                "topLabel": "Order No.",
-                "content": "<a href='www.google.it'>aaa</a>"
+                "topLabel": "Artifact",
+                "content": `<a href="${artifactUrl}">${artifactUrl}</a>`
                 }
             },
             {
