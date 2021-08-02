@@ -60,15 +60,7 @@ export async function notify(name: string, url: string, status: Status, artifact
             //     "text": `<b>Artifact</b> <br> <a href="${artifactUrl}">${artifactUrl}</a>`
             //   }
             // },
-            {
-              widgets: [{
-                keyValue: {
-                  topLabel: "Order No.",
-                  content: 'JobID',
-                  button: textButton("DETAILS", jobUrl)
-                }
-              }]
-            },
+
             // {
             //   keyValue: {
             //     topLabel: "event name",
@@ -83,6 +75,15 @@ export async function notify(name: string, url: string, status: Status, artifact
             //   keyValue: { topLabel: "commit-id", content: sha.substring(0, 8) }
             // }
           ]
+        },
+        {
+          widgets: [{
+            keyValue: {
+              topLabel: "Order No.",
+              content: 'JobID',
+              button: textButton("DETAILS", jobUrl)
+            }
+          }]
         },
         {
           widgets: [{
