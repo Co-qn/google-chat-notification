@@ -23,12 +23,13 @@ const textButton = (text: string, url: string) => ({
 
 export async function notify(name: string, url: string, status: Status, artifactUrl: string) {
   const { owner, repo } = github.context.repo;
-  const { eventName, sha, ref } = github.context;
+  const { eventName, sha, ref, runId } = github.context;
   const { number } = github.context.issue;
   const repoUrl = `https://github.com/${owner}/${repo}`;
   const eventPath = eventName === 'pull_request' ? `/pull/${number}` : `/commit/${sha}`;
   const eventUrl = `${repoUrl}${eventPath}`;
   const checksUrl = `${repoUrl}${eventPath}/checks`;
+  const jobUrl = `${repoUrl}${eventPath}/actions/runs/${runId}`;
 
   const body = {
     cards: [{
@@ -60,10 +61,12 @@ export async function notify(name: string, url: string, status: Status, artifact
               }
             },
             {
-              keyValue: {
-                content: 'JobID',
-                button: textButton("DETAILS", checksUrl)
-              }
+              widgets: [{
+                keyValue: {
+                  content: 'JobID',
+                  button: textButton("DETAILS", jobUrl)
+                }
+              }]
             },
             // {
             //   keyValue: {
