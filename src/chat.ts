@@ -47,12 +47,13 @@ export async function notify(name: string, url: string, status: Status, artifact
               "textParagraph": {
                 "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><b>Status</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event</b> ${eventName}<br><b>Artifact</b> <a href="${artifactUrl}">${artifactUrl}</a>`
               }
+            },
+            {
+              buttons: [textButton("JOB DETAILS", jobUrl)]
             }
           ]
         },
-        {
-          buttons: [textButton("JOB DETAILS", jobUrl)]
-        },
+        
         // {
         //   widgets: [
         //     {
