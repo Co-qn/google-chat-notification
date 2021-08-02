@@ -29,7 +29,7 @@ export async function notify(name: string, url: string, status: Status, artifact
   const eventPath = eventName === 'pull_request' ? `/pull/${number}` : `/commit/${sha}`;
   const eventUrl = `${repoUrl}${eventPath}`;
   const checksUrl = `${repoUrl}${eventPath}/checks`;
-  const jobUrl = `${repoUrl}${eventPath}/actions/runs/${runId}`;
+  const jobUrl = `${repoUrl}/actions/runs/${runId}`;
 
   const body = {
     cards: [{
@@ -45,7 +45,7 @@ export async function notify(name: string, url: string, status: Status, artifact
           widgets: [
             {
               "textParagraph": {
-                "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><b>Status</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event</b> ${eventName}<br><b>Artifact</b> <a href="${artifactUrl}">${artifactUrl}</a>`
+                "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}<br><b>Artifact:</b> <a href="${artifactUrl}">${artifactUrl}</a>`
               }
             },
             {
