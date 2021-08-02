@@ -2498,7 +2498,7 @@ function notify(name, url, status, artifactUrl) {
                                     keyValue: {
                                         topLabel: "Download",
                                         content: artifactUrl,
-                                        button: textButton("OPEN EVENT", eventUrl)
+                                        button: textButton("DOWNLOAD", eventUrl)
                                     }
                                 },
                                 {
@@ -2512,7 +2512,7 @@ function notify(name, url, status, artifactUrl) {
                                     keyValue: { topLabel: "ref", content: ref }
                                 },
                                 {
-                                    keyValue: { topLabel: "commit", content: sha }
+                                    keyValue: { topLabel: "commit-id", content: sha.substring(0, 8) }
                                 }
                             ]
                         },

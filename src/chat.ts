@@ -46,7 +46,7 @@ export async function notify(name: string, url: string, status: Status, artifact
               keyValue: {
                 topLabel: "Download",
                 content: artifactUrl,
-                button: textButton("OPEN EVENT", eventUrl)
+                button: textButton("DOWNLOAD", eventUrl)
               }
             },
             {
@@ -60,7 +60,7 @@ export async function notify(name: string, url: string, status: Status, artifact
               keyValue: { topLabel: "ref", content: ref }
             },
             {
-              keyValue: { topLabel: "commit", content: sha }
+              keyValue: { topLabel: "commit-id", content: sha.substring(0,8) }
             }
           ]
         },
