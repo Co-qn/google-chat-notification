@@ -2496,11 +2496,18 @@ function notify(name, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     keyValue: {
-                                        topLabel: "event name",
-                                        content: eventName,
-                                        button: textButton("OPEN EVENT", eventUrl)
+                                        topLabel: "Download",
+                                        content: artifactUrl,
+                                        button: textButton("OPEN EVENT", artifactUrl)
                                     }
                                 },
+                                // {
+                                //   keyValue: {
+                                //     topLabel: "event name",
+                                //     content: eventName,
+                                //     button: textButton("OPEN EVENT", eventUrl)
+                                //   }
+                                // },
                                 {
                                     keyValue: { topLabel: "ref", content: ref }
                                 },
