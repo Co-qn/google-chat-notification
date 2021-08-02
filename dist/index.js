@@ -2509,27 +2509,13 @@ function notify(name, url, status, artifactUrl) {
                                     "textParagraph": {
                                         "text": `<b>Artifact</b> <br> <a href="${artifactUrl}">${artifactUrl}</a>`
                                     }
-                                }
-                                // {
-                                //   keyValue: {
-                                //     topLabel: "Download",
-                                //     content: artifactUrl,
-                                //     button: textButton("DOWNLOAD", eventUrl)
-                                //   }
-                                // },
-                                // {
-                                //   keyValue: {
-                                //     topLabel: "event name",
-                                //     content: eventName,
-                                //     button: textButton("OPEN EVENT", eventUrl)
-                                //   }
-                                // }
-                                // {
-                                //   keyValue: { topLabel: "status", content: `<b> <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>` }
-                                // },
-                                // {
-                                //   keyValue: { topLabel: "commit-id", content: sha.substring(0, 8) }
-                                // }
+                                },
+                                {
+                                    keyValue: {
+                                        content: 'JobID',
+                                        button: textButton("DETAILS", checksUrl)
+                                    }
+                                },
                             ]
                         },
                         {

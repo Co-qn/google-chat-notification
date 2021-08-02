@@ -58,14 +58,13 @@ export async function notify(name: string, url: string, status: Status, artifact
               "textParagraph": {
                 "text": `<b>Artifact</b> <br> <a href="${artifactUrl}">${artifactUrl}</a>`
               }
-            }
-            // {
-            //   keyValue: {
-            //     topLabel: "Download",
-            //     content: artifactUrl,
-            //     button: textButton("DOWNLOAD", eventUrl)
-            //   }
-            // },
+            },
+            {
+              keyValue: {
+                content: 'JobID',
+                button: textButton("DETAILS", checksUrl)
+              }
+            },
             // {
             //   keyValue: {
             //     topLabel: "event name",
