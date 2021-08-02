@@ -2496,14 +2496,6 @@ function notify(name, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     keyValue: {
-                                        topLabel: "repository",
-                                        content: `${owner}/${repo}`,
-                                        contentMultiline: true,
-                                        button: textButton("OPEN REPOSITORY", repoUrl)
-                                    }
-                                },
-                                {
-                                    keyValue: {
                                         topLabel: "event name",
                                         content: eventName,
                                         button: textButton("OPEN EVENT", eventUrl)
@@ -2511,6 +2503,9 @@ function notify(name, url, status, artifactUrl) {
                                 },
                                 {
                                     keyValue: { topLabel: "ref", content: ref }
+                                },
+                                {
+                                    keyValue: { topLabel: "commit", content: sha }
                                 },
                                 {
                                     keyValue: {

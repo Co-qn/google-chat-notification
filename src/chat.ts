@@ -44,14 +44,6 @@ export async function notify(name: string, url: string, status: Status, artifact
           widgets: [
             {
               keyValue: {
-                topLabel: "repository",
-                content: `${owner}/${repo}`,
-                contentMultiline: true,
-                button: textButton("OPEN REPOSITORY", repoUrl)
-              }
-            },
-            {
-              keyValue: {
                 topLabel: "event name",
                 content: eventName,
                 button: textButton("OPEN EVENT", eventUrl)
@@ -59,6 +51,9 @@ export async function notify(name: string, url: string, status: Status, artifact
             },
             {
               keyValue: { topLabel: "ref", content: ref }
+            },
+            {
+              keyValue: { topLabel: "commit", content: sha }
             },
             {
               keyValue: {
