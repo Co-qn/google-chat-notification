@@ -2488,7 +2488,7 @@ function notify(name, url, status, artifactUrl) {
                         {
                             widgets: [{
                                     textParagraph: {
-                                        text: `<b>${name} <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`
+                                        text: `<b>${repo} <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`
                                     }
                                 }]
                         },

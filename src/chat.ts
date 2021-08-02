@@ -36,7 +36,7 @@ export async function notify(name: string, url: string, status: Status, artifact
         {
           widgets: [{
             textParagraph: {
-              text: `<b>${name} <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`
+              text: `<b>${repo} <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`
             }
           }]
         },
