@@ -2507,16 +2507,29 @@ function notify(name, url, status, artifactUrl) {
                                 },
                                 {
                                     "textParagraph": {
-                                        "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><b>Status</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event</b> ${eventName}<br>`
+                                        "text": `<b>Artifact</b> <br> <a href="${artifactUrl}>artifactUrl</a>"`
                                     }
-                                },
-                                {
-                                    keyValue: {
-                                        topLabel: "Download",
-                                        content: artifactUrl,
-                                        button: textButton("DOWNLOAD", eventUrl)
-                                    }
-                                },
+                                }
+                                // {
+                                //   keyValue: {
+                                //     topLabel: "Download",
+                                //     content: artifactUrl,
+                                //     button: textButton("DOWNLOAD", eventUrl)
+                                //   }
+                                // },
+                                // {
+                                //   keyValue: {
+                                //     topLabel: "event name",
+                                //     content: eventName,
+                                //     button: textButton("OPEN EVENT", eventUrl)
+                                //   }
+                                // }
+                                // {
+                                //   keyValue: { topLabel: "status", content: `<b> <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>` }
+                                // },
+                                // {
+                                //   keyValue: { topLabel: "commit-id", content: sha.substring(0, 8) }
+                                // }
                             ]
                         },
                         {

@@ -56,16 +56,16 @@ export async function notify(name: string, url: string, status: Status, artifact
             },
             {
               "textParagraph": {
-                "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><b>Status</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event</b> ${eventName}<br>`
+                "text": `<b>Artifact</b> <br> <a href="${artifactUrl}>artifactUrl</a>"`
               }
-            },
-            {
-              keyValue: {
-                topLabel: "Download",
-                content: artifactUrl,
-                button: textButton("DOWNLOAD", eventUrl)
-              }
-            },
+            }
+            // {
+            //   keyValue: {
+            //     topLabel: "Download",
+            //     content: artifactUrl,
+            //     button: textButton("DOWNLOAD", eventUrl)
+            //   }
+            // },
             // {
             //   keyValue: {
             //     topLabel: "event name",
