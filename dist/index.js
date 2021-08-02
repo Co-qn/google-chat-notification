@@ -2502,7 +2502,7 @@ function notify(name, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     "textParagraph": {
-                                        "text": "<b>Roses</b> are <font color=\"#ff0000\">red</font>,<br><i>Violets</i> are <font color=\"#0000ff\">blue</font>"
+                                        "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><i>Violets</i> are <font color=\"#0000ff\">blue</font>`
                                     }
                                 },
                                 {
