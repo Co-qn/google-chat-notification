@@ -41,53 +41,33 @@ export async function notify(name: string, url: string, status: Status, artifact
         "imageStyle": "IMAGE"
       },
       sections: [
-        // {
-        //   widgets: [{
-        //     textParagraph: {
-        //       text: `<b>${repo} <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`
-        //     }
-        //   }]
-        // },
         {
           widgets: [
             {
               "textParagraph": {
                 "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><b>Status</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event</b> ${eventName}<br>`
               }
-            },
+            }
             // {
             //   "textParagraph": {
             //     "text": `<b>Artifact</b> <br> <a href="${artifactUrl}">${artifactUrl}</a>`
             //   }
-            // },
-
-            // {
-            //   keyValue: {
-            //     topLabel: "event name",
-            //     content: eventName,
-            //     button: textButton("OPEN EVENT", eventUrl)
-            //   }
-            // }
-            // {
-            //   keyValue: { topLabel: "status", content: `<b> <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>` }
-            // },
-            // {
-            //   keyValue: { topLabel: "commit-id", content: sha.substring(0, 8) }
             // }
           ]
         },
+        // {
+        //   widgets: [
+        //     {
+        //     keyValue: {
+        //       topLabel: "Order No.",
+        //       content: 'JobID',
+        //       button: textButton("DETAILS", jobUrl)
+        //     }
+        //   ]
+        // },
         {
           widgets: [{
-            keyValue: {
-              topLabel: "Order No.",
-              content: 'JobID',
-              button: textButton("DETAILS", jobUrl)
-            }
-          }]
-        },
-        {
-          widgets: [{
-            buttons: [textButton("JOB DETAILS", checksUrl)]
+            buttons: [textButton("JOB DETAILS", jobUrl)]
           }]
         }
       ]
