@@ -2487,17 +2487,17 @@ function notify(name, url, status, artifactUrl) {
                     "header": {
                         "title": repo,
                         "subtitle": ref,
-                        "imageUrl": "https://goo.gl/aeDtrS",
+                        "imageUrl": "https://lh3.googleusercontent.com/proxy/p3mSfQtf-xADb2Us8knTTzMHpQwoBKW5JU3ZISKETZMJ72D3uQMJ9Xa2JbRM1vuYVev448pQU2VgOaz0RCMq0GnlfvX20ruFgNdM9XKmDOTlIgw6yocpurQ=s64-c",
                         "imageStyle": "IMAGE"
                     },
                     sections: [
-                        {
-                            widgets: [{
-                                    textParagraph: {
-                                        text: `<b>${repo} <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`
-                                    }
-                                }]
-                        },
+                        // {
+                        //   widgets: [{
+                        //     textParagraph: {
+                        //       text: `<b>${repo} <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`
+                        //     }
+                        //   }]
+                        // },
                         {
                             widgets: [
                                 {
@@ -2515,7 +2515,7 @@ function notify(name, url, status, artifactUrl) {
                                     }
                                 },
                                 {
-                                    keyValue: { topLabel: "ref", content: ref }
+                                    keyValue: { topLabel: "status", content: `<b> <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>` }
                                 },
                                 {
                                     keyValue: { topLabel: "commit-id", content: sha.substring(0, 8) }
