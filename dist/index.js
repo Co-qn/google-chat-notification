@@ -2496,15 +2496,15 @@ function notify(name, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     "textParagraph": {
-                                        "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}<br><b>Artifact:</b> <small>${artifactUrl}</small>`
+                                        "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}<br><b>Artifact:</b> ${artifactUrl}`
                                     }
                                 },
-                                {
-                                    "keyValue": {
-                                        "topLabel": "Artifact",
-                                        "content": `<a href="${artifactUrl}">${artifactUrl}</a>`
-                                    }
-                                },
+                                // {
+                                //   "keyValue": {
+                                //     "topLabel": "Artifact",
+                                //     "content": `<a href="${artifactUrl}">${artifactUrl}</a>`
+                                //     }
+                                // },
                                 {
                                     buttons: [textButton("JOB DETAILS", jobUrl)]
                                 }
