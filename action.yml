@@ -11,6 +11,9 @@ inputs:
   status:
     description: 'job status.'
     required: true
+  artifactUrl:
+    description: 'Artifact URL.'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
