@@ -51,7 +51,7 @@ export async function notify(name: string, url: string, status: Status, artifact
           widgets: [
             {
               "textParagraph": {
-                "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><b>Status</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font>`
+                "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><b>Status</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><b>Event</b> ${eventName}<br>`
               }
             },
             {
@@ -61,13 +61,13 @@ export async function notify(name: string, url: string, status: Status, artifact
                 button: textButton("DOWNLOAD", eventUrl)
               }
             },
-            {
-              keyValue: {
-                topLabel: "event name",
-                content: eventName,
-                button: textButton("OPEN EVENT", eventUrl)
-              }
-            }
+            // {
+            //   keyValue: {
+            //     topLabel: "event name",
+            //     content: eventName,
+            //     button: textButton("OPEN EVENT", eventUrl)
+            //   }
+            // }
             // {
             //   keyValue: { topLabel: "status", content: `<b> <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>` }
             // },
@@ -78,7 +78,7 @@ export async function notify(name: string, url: string, status: Status, artifact
         },
         {
           widgets: [{
-            buttons: [textButton("OPEN CHECKS", checksUrl)]
+            buttons: [textButton("JOB DETAILS", checksUrl)]
           }]
         }
       ]

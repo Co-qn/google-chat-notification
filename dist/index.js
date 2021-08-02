@@ -2502,7 +2502,7 @@ function notify(name, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     "textParagraph": {
-                                        "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><b>Status</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font>`
+                                        "text": `<b>Commit ID</b> ${sha.substring(0, 8)}<br><b>Status</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><b>Event</b> ${eventName}<br>`
                                     }
                                 },
                                 {
@@ -2512,24 +2512,11 @@ function notify(name, url, status, artifactUrl) {
                                         button: textButton("DOWNLOAD", eventUrl)
                                     }
                                 },
-                                {
-                                    keyValue: {
-                                        topLabel: "event name",
-                                        content: eventName,
-                                        button: textButton("OPEN EVENT", eventUrl)
-                                    }
-                                }
-                                // {
-                                //   keyValue: { topLabel: "status", content: `<b> <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>` }
-                                // },
-                                // {
-                                //   keyValue: { topLabel: "commit-id", content: sha.substring(0, 8) }
-                                // }
                             ]
                         },
                         {
                             widgets: [{
-                                    buttons: [textButton("OPEN CHECKS", checksUrl)]
+                                    buttons: [textButton("JOB DETAILS", checksUrl)]
                                 }]
                         }
                     ]
