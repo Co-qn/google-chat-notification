@@ -2485,8 +2485,8 @@ function notify(name, url, status, artifactUrl) {
         const body = {
             cards: [{
                     "header": {
-                        "title": "Pizza Bot Customer Support",
-                        "subtitle": "pizzabot@example.com",
+                        "title": repo,
+                        "subtitle": ref,
                         "imageUrl": "https://goo.gl/aeDtrS",
                         "imageStyle": "IMAGE"
                     },

@@ -34,8 +34,8 @@ export async function notify(name: string, url: string, status: Status, artifact
     cards: [{
       
         "header": {
-          "title": "Pizza Bot Customer Support",
-          "subtitle": "pizzabot@example.com",
+          "title": repo,
+          "subtitle": ref,
           "imageUrl": "https://goo.gl/aeDtrS",
           "imageStyle": "IMAGE"
         },
