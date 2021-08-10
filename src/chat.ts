@@ -71,8 +71,15 @@ export async function notify(name: string, url: string, status: Status, artifact
           widgets: [
             {
               "keyValue": {
-                "topLabel": "Artifact path",
-                "content": `${artifactUrl}`
+                "topLabel": "Artifact",
+                "contentMultiline": "true",
+                "content": `${artifactUrl}`,
+                "bottomLabel": "Download",
+                "onClick": {
+                  "openLink": {
+                    "url": `https://www.google.com/url?q=${artifactUrl}`
+                  }
+                },
               }
             },
             {
