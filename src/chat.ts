@@ -49,16 +49,26 @@ export async function notify(name: string, url: string, status: Status, artifact
               }
             },
             {
-              "keyValue": {
-                "topLabel": "Artifact",
-                "contentMultiline": "true",
-                "content": `${artifactUrl}`,
-                "bottomLabel": "Download",
-                "onClick": {
-                  "openLink": {
-                    "url": `https://www.google.com/url?q=${artifactUrl}`
+              keyValue: {
+                topLabel: "Artifact",
+                contentMultiline: "true",
+                content: `${name}`,
+                // "bottomLabel": "Download",
+                // "onClick": {
+                //   "openLink": {
+                //     "url": `https://www.google.com/url?q=${artifactUrl}`
+                //   }
+                // }
+                button: {
+                  textButton: {
+                    text: "GET IT",
+                    onClick: {
+                      openLink: {
+                        url: `https://www.google.com/url?q=${artifactUrl}`
+                      }
+                    }
                   }
-                },
+                }
               }
             }
             // {
