@@ -49,27 +49,6 @@ export async function notify(name: string, url: string, status: Status, artifact
               }
             },
             {
-              keyValue: {
-                topLabel: "CI",
-                content: "Open job",
-                button:
-                {
-                  textButton: {
-                    text: "DETAILS",
-                    onClick: {
-                      openLink: {
-                        url: `${jobUrl}`
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        {
-          widgets: [
-            {
               "keyValue": {
                 "topLabel": "Artifact",
                 "contentMultiline": "true",
@@ -81,23 +60,70 @@ export async function notify(name: string, url: string, status: Status, artifact
                   }
                 },
               }
-            },
+            }
+            // {
+            //   keyValue: {
+            //     topLabel: "CI",
+            //     content: "Open job",
+            //     button:
+            //     {
+            //       textButton: {
+            //         text: "DETAILS",
+            //         onClick: {
+            //           openLink: {
+            //             url: `${jobUrl}`
+            //           }
+            //         }
+            //       }
+            //     }
+            //   }
+            // }
+          ]
+        },
+        {
+          widgets: [
+            // {
+            //   "keyValue": {
+            //     "topLabel": "Artifact",
+            //     "contentMultiline": "true",
+            //     "content": `${artifactUrl}`,
+            //     "bottomLabel": "Download",
+            //     "onClick": {
+            //       "openLink": {
+            //         "url": `https://www.google.com/url?q=${artifactUrl}`
+            //       }
+            //     },
+            //   }
+            // },
+            // {
+            //   keyValue: {
+            //     topLabel: "Artifact",
+            //     content: "click button to download",
+            //     button:
+            //     {
+            //       textButton: {
+            //         text: "DOWNLOAD",
+            //         onClick: {
+            //           openLink: {
+            //             url: `https://www.google.com/url?q=${artifactUrl}`
+            //           }
+            //         }
+            //       }
+            //     }
+            //   }
             {
-              keyValue: {
-                topLabel: "Artifact",
-                content: "click button to download",
-                button:
+
+              buttons: [
                 {
                   textButton: {
-                    text: "DOWNLOAD",
+                    text: "JOB DETAILS",
                     onClick: {
                       openLink: {
-                        url: `https://www.google.com/url?q=${artifactUrl}`
+                        url: `${jobUrl}`
                       }
                     }
                   }
-                }
-              }
+                }]
             }
           ]
         }
