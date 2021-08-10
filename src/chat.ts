@@ -45,33 +45,47 @@ export async function notify(name: string, url: string, status: Status, artifact
           widgets: [
             {
               "textParagraph": {
-                "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}<br><b>Artifact:</b> <a href="https://www.google.com/url?q=${artifactUrl}">${artifactUrl}</a>`
+                "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}`
               }
             },
-            // {
-            //   "keyValue": {
-            //     "topLabel": "Artifact",
-            //     "content": `<a href="${artifactUrl}">${artifactUrl}</a>`
-            //     }
-            // },
             {
-              buttons: [textButton("JOB DETAILS", jobUrl)]
+              keyValue: {
+                topLabel: "CI",
+                content: "Open job",
+                button:
+                {
+                  textButton: {
+                    text: "DETAILS",
+                    onClick: {
+                      openLink: {
+                        url: `${jobUrl}`
+                      }
+                    }
+                  }
+                }
+              }
             }
           ]
         },
         {
           widgets: [
             {
+              "keyValue": {
+                "topLabel": "Artifact path",
+                "content": `${artifactUrl}`
+              }
+            },
+            {
               keyValue: {
-
-                content: "12345",
+                topLabel: "Artifact",
+                content: "click button to download",
                 button:
                 {
                   textButton: {
                     text: "DOWNLOAD",
                     onClick: {
                       openLink: {
-                        url: "https://www.google.com/url?q=${artifactUrl}"
+                        url: `https://www.google.com/url?q=${artifactUrl}`
                       }
                     }
                   }
@@ -80,6 +94,7 @@ export async function notify(name: string, url: string, status: Status, artifact
             }
           ]
         }
+
 
       ]
     }]
