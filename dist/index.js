@@ -2496,7 +2496,7 @@ function notify(name, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     "textParagraph": {
-                                        "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}<br><b>Artifact:</b> <a href=${artifactUrl}>${artifactUrl}</a>`
+                                        "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}<br><b>Artifact:</b> <a href="https://www.google.com/url?q=${artifactUrl}">${artifactUrl}</a>`
                                     }
                                 },
                                 // {
@@ -2507,6 +2507,25 @@ function notify(name, url, status, artifactUrl) {
                                 // },
                                 {
                                     buttons: [textButton("JOB DETAILS", jobUrl)]
+                                }
+                            ]
+                        },
+                        {
+                            widgets: [
+                                {
+                                    keyValue: {
+                                        content: "12345",
+                                        button: {
+                                            textButton: {
+                                                text: "DOWNLOAD",
+                                                onClick: {
+                                                    openLink: {
+                                                        url: "https://www.google.com/url?q=${artifactUrl}"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             ]
                         }

@@ -58,7 +58,29 @@ export async function notify(name: string, url: string, status: Status, artifact
               buttons: [textButton("JOB DETAILS", jobUrl)]
             }
           ]
+        },
+        {
+          widgets: [
+            {
+              keyValue: {
+
+                content: "12345",
+                button:
+                {
+                  textButton: {
+                    text: "DOWNLOAD",
+                    onClick: {
+                      openLink: {
+                        url: "https://www.google.com/url?q=${artifactUrl}"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
         }
+
       ]
     }]
   };
