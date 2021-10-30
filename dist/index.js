@@ -703,8 +703,9 @@ function run() {
             const url = core.getInput('url', { required: true });
             const status = JobStatus.parse(core.getInput('status', { required: true }));
             const artifactUrl = core.getInput('artifactUrl', { required: true });
+            const repoRef = core.getInput('repoRef', { required: false });
             core.debug(`input params: name=${name}, status=${status}, url=${url}, artifactUrl=${artifactUrl}`);
-            yield GoogleChat.notify(name, url, status, artifactUrl);
+            yield GoogleChat.notify(repoRef, name, url, status, artifactUrl);
             console.info('Sent message.');
         }
         catch (error) {
@@ -2473,7 +2474,7 @@ const textButton = (text, url) => ({
         onClick: { openLink: { url } }
     }
 });
-function notify(name, url, status, artifactUrl) {
+function notify(repoRef, name, url, status, artifactUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         const { owner, repo } = github.context.repo;
         const { eventName, sha, ref, runId } = github.context;
@@ -2487,7 +2488,7 @@ function notify(name, url, status, artifactUrl) {
             cards: [{
                     "header": {
                         "title": repo,
-                        "subtitle": ref,
+                        "subtitle": ((repoRef) ? repoRef : ref),
                         "imageUrl": "https://lh3.googleusercontent.com/proxy/p3mSfQtf-xADb2Us8knTTzMHpQwoBKW5JU3ZISKETZMJ72D3uQMJ9Xa2JbRM1vuYVev448pQU2VgOaz0RCMq0GnlfvX20ruFgNdM9XKmDOTlIgw6yocpurQ=s64-c",
                         "imageStyle": "IMAGE"
                     },
@@ -2504,12 +2505,6 @@ function notify(name, url, status, artifactUrl) {
                                         topLabel: "Artifact",
                                         contentMultiline: "true",
                                         content: `${name}`,
-                                        // "bottomLabel": "Download",
-                                        // "onClick": {
-                                        //   "openLink": {
-                                        //     "url": `https://www.google.com/url?q=${artifactUrl}`
-                                        //   }
-                                        // }
                                         button: {
                                             textButton: {
                                                 text: "GET IT",
@@ -2522,56 +2517,10 @@ function notify(name, url, status, artifactUrl) {
                                         }
                                     }
                                 }
-                                // {
-                                //   keyValue: {
-                                //     topLabel: "CI",
-                                //     content: "Open job",
-                                //     button:
-                                //     {
-                                //       textButton: {
-                                //         text: "DETAILS",
-                                //         onClick: {
-                                //           openLink: {
-                                //             url: `${jobUrl}`
-                                //           }
-                                //         }
-                                //       }
-                                //     }
-                                //   }
-                                // }
                             ]
                         },
                         {
                             widgets: [
-                                // {
-                                //   "keyValue": {
-                                //     "topLabel": "Artifact",
-                                //     "contentMultiline": "true",
-                                //     "content": `${artifactUrl}`,
-                                //     "bottomLabel": "Download",
-                                //     "onClick": {
-                                //       "openLink": {
-                                //         "url": `https://www.google.com/url?q=${artifactUrl}`
-                                //       }
-                                //     },
-                                //   }
-                                // },
-                                // {
-                                //   keyValue: {
-                                //     topLabel: "Artifact",
-                                //     content: "click button to download",
-                                //     button:
-                                //     {
-                                //       textButton: {
-                                //         text: "DOWNLOAD",
-                                //         onClick: {
-                                //           openLink: {
-                                //             url: `https://www.google.com/url?q=${artifactUrl}`
-                                //           }
-                                //         }
-                                //       }
-                                //     }
-                                //   }
                                 {
                                     buttons: [
                                         {
