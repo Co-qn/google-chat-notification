@@ -21,7 +21,7 @@ const textButton = (text: string, url: string) => ({
   }
 });
 
-export async function notify( name: string, buildNumber: string, repoRef: string,url: string, status: Status, artifactUrl: string) {
+export async function notify( name: string,url: string, status: Status, artifactUrl: string) {
   const { owner, repo } = github.context.repo;
   const { eventName, sha, ref, runId, runNumber } = github.context;
   const { number } = github.context.issue;
@@ -34,7 +34,7 @@ export async function notify( name: string, buildNumber: string, repoRef: string
 
       "header": {
         "title": repo,
-        "subtitle": repoRef,
+        "subtitle": name,
         "imageUrl": "https://lh3.googleusercontent.com/proxy/p3mSfQtf-xADb2Us8knTTzMHpQwoBKW5JU3ZISKETZMJ72D3uQMJ9Xa2JbRM1vuYVev448pQU2VgOaz0RCMq0GnlfvX20ruFgNdM9XKmDOTlIgw6yocpurQ=s64-c",
         "imageStyle": "IMAGE"
       },

@@ -700,13 +700,11 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const name = core.getInput('name', { required: true });
-            const buildNumber = core.getInput('buildNumber', { required: false });
             const url = core.getInput('url', { required: true });
             const status = JobStatus.parse(core.getInput('status', { required: true }));
             const artifactUrl = core.getInput('artifactUrl', { required: true });
-            const repoRef = core.getInput('repoRef', { required: false });
             core.debug(`input params: name=${name}, status=${status}, url=${url}, artifactUrl=${artifactUrl}`);
-            yield GoogleChat.notify(name, buildNumber, repoRef, url, status, artifactUrl);
+            yield GoogleChat.notify(name, url, status, artifactUrl);
             console.info('Sent message.');
         }
         catch (error) {
@@ -2475,7 +2473,7 @@ const textButton = (text, url) => ({
         onClick: { openLink: { url } }
     }
 });
-function notify(name, buildNumber, repoRef, url, status, artifactUrl) {
+function notify(name, url, status, artifactUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         const { owner, repo } = github.context.repo;
         const { eventName, sha, ref, runId, runNumber } = github.context;
@@ -2487,7 +2485,7 @@ function notify(name, buildNumber, repoRef, url, status, artifactUrl) {
             cards: [{
                     "header": {
                         "title": repo,
-                        "subtitle": repoRef,
+                        "subtitle": name,
                         "imageUrl": "https://lh3.googleusercontent.com/proxy/p3mSfQtf-xADb2Us8knTTzMHpQwoBKW5JU3ZISKETZMJ72D3uQMJ9Xa2JbRM1vuYVev448pQU2VgOaz0RCMq0GnlfvX20ruFgNdM9XKmDOTlIgw6yocpurQ=s64-c",
                         "imageStyle": "IMAGE"
                     },
