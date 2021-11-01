@@ -2503,7 +2503,7 @@ function notify(name, url, status, artifactUrl) {
                                     "keyValue": {
                                         "topLabel": "Event Ref.",
                                         "content": eventPath,
-                                        "button": textButton("GET ARTIFACT", `https://www.google.com/url?q=${artifactUrl}`)
+                                        "button": textButton("DOWNLOAD", `https://www.google.com/url?q=${artifactUrl}`)
                                     }
                                 }
                             ]

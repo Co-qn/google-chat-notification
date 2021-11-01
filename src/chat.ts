@@ -53,7 +53,7 @@ export async function notify( name: string,url: string, status: Status, artifact
               "keyValue": {
                 "topLabel": "Event Ref.",
                 "content": eventPath,
-                "button": textButton("GET ARTIFACT", `https://www.google.com/url?q=${artifactUrl}`)
+                "button": textButton("DOWNLOAD", `https://www.google.com/url?q=${artifactUrl}`)
                 }
             }
           ]
