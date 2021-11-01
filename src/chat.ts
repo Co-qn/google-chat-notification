@@ -45,7 +45,7 @@ export async function notify( name: string, buildNumber: string, repoRef: string
               "keyValue": {
                 "topLabel": "Build #",
                 "content": `<b>${buildNumber}</b> - <b><font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`,
-                "button": textButton("JOB DETAILSY", jobUrl)
+                "button": textButton("JOB DETAILS", jobUrl)
 
               }
             },
@@ -67,16 +67,6 @@ export async function notify( name: string, buildNumber: string, repoRef: string
           widgets: [
             {
               buttons: [
-                {
-                  textButton: {
-                    text: "JOB DETAILS",
-                    onClick: {
-                      openLink: {
-                        url: `${jobUrl}`
-                      }
-                    }
-                  }
-                },
                 {
                   textButton: {
                     text: "GET ARTIFACT",

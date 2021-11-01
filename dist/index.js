@@ -2498,7 +2498,7 @@ function notify(name, buildNumber, repoRef, url, status, artifactUrl) {
                                     "keyValue": {
                                         "topLabel": "Build #",
                                         "content": `<b>${buildNumber}</b> - <b><font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`,
-                                        "button": textButton("JOB DETAILSY", jobUrl)
+                                        "button": textButton("JOB DETAILS", jobUrl)
                                     }
                                 },
                                 {
@@ -2519,16 +2519,6 @@ function notify(name, buildNumber, repoRef, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     buttons: [
-                                        {
-                                            textButton: {
-                                                text: "JOB DETAILS",
-                                                onClick: {
-                                                    openLink: {
-                                                        url: `${jobUrl}`
-                                                    }
-                                                }
-                                            }
-                                        },
                                         {
                                             textButton: {
                                                 text: "GET ARTIFACT",
