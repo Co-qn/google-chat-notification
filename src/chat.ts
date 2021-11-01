@@ -43,22 +43,6 @@ export async function notify( name: string, buildNumber: string, repoRef: string
       sections: [
         {
           widgets: [
-            // {
-            //   "textParagraph": {
-            //     "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}`
-            //   }
-            // },
-            // {
-            //   "textParagraph": {
-            //     "text": `<b>Build #:</b> ${buildNumber}`
-            //   }
-            // },
-            // {
-            //   "textParagraph": {
-            //     "text": `<b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font>
-            //     <b>Event:</b> ${eventName}`
-            //   }
-            // },
             {
               "keyValue": {
                 "topLabel": "Rif.",
@@ -68,19 +52,19 @@ export async function notify( name: string, buildNumber: string, repoRef: string
             {
               "keyValue": {
                 "topLabel": "Commit",
-                "content": "${sha.substring(0, 8)}"
+                "content": sha.substring(0, 8)
                 }
             },
             {
               "keyValue": {
                 "topLabel": "Build #",
-                "content": buildNumber
+                "content": `<b>${buildNumber}</b>`
               }
             },
             {
               "keyValue": {
                 "topLabel": "Event",
-                "content": "${eventName}"
+                "content": eventName
               }
             }
             // {
@@ -121,7 +105,7 @@ export async function notify( name: string, buildNumber: string, repoRef: string
                     text: "GET ARTIFACT",
                     onClick: {
                       openLink: {
-                        url: `https://www.google.com/url?q=${artifactUrl}`
+                        url: artifactUrl
                       }
                     }
                   }
