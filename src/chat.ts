@@ -36,46 +36,70 @@ export async function notify( name: string, buildNumber: string, repoRef: string
 
       "header": {
         "title": repo,
-        "subtitle": ((repoRef) ? repoRef : ref),
+        "subtitle": `<font color="${statusColorPalette[status]}">${statusText[status]}</font>`,
         "imageUrl": "https://lh3.googleusercontent.com/proxy/p3mSfQtf-xADb2Us8knTTzMHpQwoBKW5JU3ZISKETZMJ72D3uQMJ9Xa2JbRM1vuYVev448pQU2VgOaz0RCMq0GnlfvX20ruFgNdM9XKmDOTlIgw6yocpurQ=s64-c",
         "imageStyle": "IMAGE"
       },
       sections: [
         {
           widgets: [
+            // {
+            //   "textParagraph": {
+            //     "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}`
+            //   }
+            // },
+            // {
+            //   "textParagraph": {
+            //     "text": `<b>Build #:</b> ${buildNumber}`
+            //   }
+            // },
+            // {
+            //   "textParagraph": {
+            //     "text": `<b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font>
+            //     <b>Event:</b> ${eventName}`
+            //   }
+            // },
             {
-              "textParagraph": {
-                "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}`
-              }
-            },
-            {
-              "textParagraph": {
-                "text": `<b>Build #:</b> ${buildNumber}`
-              }
-            },
-            {
-              "textParagraph": {
-                "text": `<b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font>
-                <b>Event:</b> ${eventName}`
-              }
-            },
-            {
-              keyValue: {
-                topLabel: "Artifact",
-                contentMultiline: "true",
-                content: `${name}`,
-                button: {
-                  textButton: {
-                    text: "GET IT",
-                    onClick: {
-                      openLink: {
-                        url: `https://www.google.com/url?q=${artifactUrl}`
-                      }
-                    }
-                  }
+              "keyValue": {
+                "topLabel": "Rif.",
+                "content": repoRef
                 }
+            },
+            {
+              "keyValue": {
+                "topLabel": "Commit",
+                "content": "${sha.substring(0, 8)}"
+                }
+            },
+            {
+              "keyValue": {
+                "topLabel": "Build #",
+                "content": buildNumber
+              }
+            },
+            {
+              "keyValue": {
+                "topLabel": "Event",
+                "content": "${eventName}"
               }
             }
+            // {
+            //   keyValue: {
+            //     topLabel: "Artifact",
+            //     contentMultiline: "true",
+            //     content: `${name}`,
+            //     button: {
+            //       textButton: {
+            //         text: "GET IT",
+            //         onClick: {
+            //           openLink: {
+            //             url: `https://www.google.com/url?q=${artifactUrl}`
+            //           }
+            //         }
+            //       }
+            //     }
+            //   }
+            // }
           ]
         },
         {
