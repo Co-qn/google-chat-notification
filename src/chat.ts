@@ -23,7 +23,7 @@ const textButton = (text: string, url: string) => ({
 
 export async function notify( name: string, buildNumber: string, repoRef: string,url: string, status: Status, artifactUrl: string) {
   const { owner, repo } = github.context.repo;
-  const { eventName, sha, ref, runId } = github.context;
+  const { eventName, sha, ref, runId, runNumber } = github.context;
   const { number } = github.context.issue;
   const repoUrl = `https://github.com/${owner}/${repo}`;
   const eventPath = eventName === 'pull_request' ? `/pull/${number}` : `/commit/${sha.substring(0, 8)}`;
@@ -44,15 +44,9 @@ export async function notify( name: string, buildNumber: string, repoRef: string
             {
               "keyValue": {
                 "topLabel": "Build #",
-                "content": `<b>${buildNumber}</b> - <b><font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`,
+                "content": `<b>${runNumber}</b> - <b><font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`,
                 "button": textButton("JOB DETAILS", jobUrl)
 
-              }
-            },
-            {
-              "keyValue": {
-                "topLabel": "Event",
-                "content": eventName
               }
             },
             {
