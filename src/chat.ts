@@ -26,9 +26,7 @@ export async function notify( name: string, buildNumber: string, repoRef: string
   const { eventName, sha, ref, runId } = github.context;
   const { number } = github.context.issue;
   const repoUrl = `https://github.com/${owner}/${repo}`;
-  const eventPath = eventName === 'pull_request' ? `/pull/${number}` : `/commit/${sha}`;
-  const eventUrl = `${repoUrl}${eventPath}`;
-  const checksUrl = `${repoUrl}${eventPath}/checks`;
+  const eventPath = eventName === 'pull_request' ? `/pull/${number}` : `/commit/${sha.substring(0, 8)}`;
   const jobUrl = `${repoUrl}/actions/runs/${runId}`;
 
   const body = {
@@ -51,14 +49,8 @@ export async function notify( name: string, buildNumber: string, repoRef: string
             },
             {
               "keyValue": {
-                "topLabel": "Commit",
-                "content": sha.substring(0, 8)
-                }
-            },
-            {
-              "keyValue": {
                 "topLabel": "Build #",
-                "content": `<b>${buildNumber}</b>`
+                "content": buildNumber
               }
             },
             {
@@ -66,24 +58,13 @@ export async function notify( name: string, buildNumber: string, repoRef: string
                 "topLabel": "Event",
                 "content": eventName
               }
+            },
+            {
+              "keyValue": {
+                "topLabel": "Event Ref.",
+                "content": eventPath
+                }
             }
-            // {
-            //   keyValue: {
-            //     topLabel: "Artifact",
-            //     contentMultiline: "true",
-            //     content: `${name}`,
-            //     button: {
-            //       textButton: {
-            //         text: "GET IT",
-            //         onClick: {
-            //           openLink: {
-            //             url: `https://www.google.com/url?q=${artifactUrl}`
-            //           }
-            //         }
-            //       }
-            //     }
-            //   }
-            // }
           ]
         },
         {
@@ -105,7 +86,7 @@ export async function notify( name: string, buildNumber: string, repoRef: string
                     text: "GET ARTIFACT",
                     onClick: {
                       openLink: {
-                        url: artifactUrl
+                        url: `${artifactUrl}`
                       }
                     }
                   }
