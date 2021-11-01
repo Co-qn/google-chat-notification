@@ -2539,7 +2539,7 @@ function notify(name, buildNumber, repoRef, url, status, artifactUrl) {
                                                 text: "GET ARTIFACT",
                                                 onClick: {
                                                     openLink: {
-                                                        url: `${artifactUrl}`
+                                                        url: `https://www.google.com/url?q=${artifactUrl}`
                                                     }
                                                 }
                                             }

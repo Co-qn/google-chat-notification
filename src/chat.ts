@@ -86,7 +86,7 @@ export async function notify( name: string, buildNumber: string, repoRef: string
                     text: "GET ARTIFACT",
                     onClick: {
                       openLink: {
-                        url: `${artifactUrl}`
+                        url: `https://www.google.com/url?q=${artifactUrl}`
                       }
                     }
                   }
