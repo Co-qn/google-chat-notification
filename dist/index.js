@@ -700,12 +700,13 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const name = core.getInput('name', { required: true });
+            const buildNumber = core.getInput('buildNumber', { required: false });
             const url = core.getInput('url', { required: true });
             const status = JobStatus.parse(core.getInput('status', { required: true }));
             const artifactUrl = core.getInput('artifactUrl', { required: true });
             const repoRef = core.getInput('repoRef', { required: false });
             core.debug(`input params: name=${name}, status=${status}, url=${url}, artifactUrl=${artifactUrl}`);
-            yield GoogleChat.notify(repoRef, name, url, status, artifactUrl);
+            yield GoogleChat.notify(name, buildNumber, repoRef, url, status, artifactUrl);
             console.info('Sent message.');
         }
         catch (error) {
@@ -2474,7 +2475,7 @@ const textButton = (text, url) => ({
         onClick: { openLink: { url } }
     }
 });
-function notify(repoRef, name, url, status, artifactUrl) {
+function notify(name, buildNumber, repoRef, url, status, artifactUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         const { owner, repo } = github.context.repo;
         const { eventName, sha, ref, runId } = github.context;
@@ -2497,7 +2498,11 @@ function notify(repoRef, name, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     "textParagraph": {
-                                        "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}`
+                                        "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br>
+                        <b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br>
+                        <b>Event:</b> ${eventName}<br>
+                        <b>Build #:</b> ${buildNumber}
+                        `
                                     }
                                 },
                                 {
@@ -2529,6 +2534,16 @@ function notify(repoRef, name, url, status, artifactUrl) {
                                                 onClick: {
                                                     openLink: {
                                                         url: `${jobUrl}`
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            textButton: {
+                                                text: "GET ARTIFACT",
+                                                onClick: {
+                                                    openLink: {
+                                                        url: `https://www.google.com/url?q=${artifactUrl}`
                                                     }
                                                 }
                                             }

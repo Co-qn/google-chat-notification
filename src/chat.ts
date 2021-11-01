@@ -21,7 +21,7 @@ const textButton = (text: string, url: string) => ({
   }
 });
 
-export async function notify(repoRef: string, name: string, url: string, status: Status, artifactUrl: string) {
+export async function notify( name: string, buildNumber: string, repoRef: string,url: string, status: Status, artifactUrl: string) {
   const { owner, repo } = github.context.repo;
   const { eventName, sha, ref, runId } = github.context;
   const { number } = github.context.issue;
@@ -45,7 +45,11 @@ export async function notify(repoRef: string, name: string, url: string, status:
           widgets: [
             {
               "textParagraph": {
-                "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}`
+                "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br>
+                        <b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br>
+                        <b>Event:</b> ${eventName}<br>
+                        <b>Build #:</b> ${buildNumber}
+                        `
               }
             },
             {
@@ -77,6 +81,16 @@ export async function notify(repoRef: string, name: string, url: string, status:
                     onClick: {
                       openLink: {
                         url: `${jobUrl}`
+                      }
+                    }
+                  }
+                },
+                {
+                  textButton: {
+                    text: "GET ARTIFACT",
+                    onClick: {
+                      openLink: {
+                        url: `https://www.google.com/url?q=${artifactUrl}`
                       }
                     }
                   }
