@@ -2498,11 +2498,18 @@ function notify(name, buildNumber, repoRef, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     "textParagraph": {
-                                        "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br>
-                        <b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br>
-                        <b>Event:</b> ${eventName}<br>
-                        <b>Build #:</b> ${buildNumber}
-                        `
+                                        "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}`
+                                    }
+                                },
+                                {
+                                    "textParagraph": {
+                                        "text": `<b>Build #:</b> ${buildNumber}`
+                                    }
+                                },
+                                {
+                                    "textParagraph": {
+                                        "text": `<b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font>
+                <b>Event:</b> ${eventName}`
                                     }
                                 },
                                 {
