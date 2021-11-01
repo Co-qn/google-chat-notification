@@ -21,14 +21,12 @@ const textButton = (text: string, url: string) => ({
   }
 });
 
-export async function notify(repoRef: string, name: string, url: string, status: Status, artifactUrl: string) {
+export async function notify( name: string,url: string, status: Status, artifactUrl: string) {
   const { owner, repo } = github.context.repo;
-  const { eventName, sha, ref, runId } = github.context;
+  const { eventName, sha, ref, runId, runNumber } = github.context;
   const { number } = github.context.issue;
   const repoUrl = `https://github.com/${owner}/${repo}`;
-  const eventPath = eventName === 'pull_request' ? `/pull/${number}` : `/commit/${sha}`;
-  const eventUrl = `${repoUrl}${eventPath}`;
-  const checksUrl = `${repoUrl}${eventPath}/checks`;
+  const eventPath = eventName === 'pull_request' ? `/pull/${number}` : `/commit/${sha.substring(0, 8)}`;
   const jobUrl = `${repoUrl}/actions/runs/${runId}`;
 
   const body = {
@@ -36,7 +34,7 @@ export async function notify(repoRef: string, name: string, url: string, status:
 
       "header": {
         "title": repo,
-        "subtitle": ((repoRef) ? repoRef : ref),
+        "subtitle": name,
         "imageUrl": "https://lh3.googleusercontent.com/proxy/p3mSfQtf-xADb2Us8knTTzMHpQwoBKW5JU3ZISKETZMJ72D3uQMJ9Xa2JbRM1vuYVev448pQU2VgOaz0RCMq0GnlfvX20ruFgNdM9XKmDOTlIgw6yocpurQ=s64-c",
         "imageStyle": "IMAGE"
       },
@@ -44,43 +42,19 @@ export async function notify(repoRef: string, name: string, url: string, status:
         {
           widgets: [
             {
-              "textParagraph": {
-                "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}`
+              "keyValue": {
+                "topLabel": "Build #",
+                "content": `<b>${runNumber}</b> - <b><font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`,
+                "button": textButton("JOB DETAILS", jobUrl)
+
               }
             },
             {
-              keyValue: {
-                topLabel: "Artifact",
-                contentMultiline: "true",
-                content: `${name}`,
-                button: {
-                  textButton: {
-                    text: "GET IT",
-                    onClick: {
-                      openLink: {
-                        url: `https://www.google.com/url?q=${artifactUrl}`
-                      }
-                    }
-                  }
+              "keyValue": {
+                "topLabel": "Event Ref.",
+                "content": eventPath,
+                "button": textButton("DOWNLOAD", `https://www.google.com/url?q=${artifactUrl}`)
                 }
-              }
-            }
-          ]
-        },
-        {
-          widgets: [
-            {
-              buttons: [
-                {
-                  textButton: {
-                    text: "JOB DETAILS",
-                    onClick: {
-                      openLink: {
-                        url: `${jobUrl}`
-                      }
-                    }
-                  }
-                }]
             }
           ]
         }

@@ -703,9 +703,8 @@ function run() {
             const url = core.getInput('url', { required: true });
             const status = JobStatus.parse(core.getInput('status', { required: true }));
             const artifactUrl = core.getInput('artifactUrl', { required: true });
-            const repoRef = core.getInput('repoRef', { required: false });
             core.debug(`input params: name=${name}, status=${status}, url=${url}, artifactUrl=${artifactUrl}`);
-            yield GoogleChat.notify(repoRef, name, url, status, artifactUrl);
+            yield GoogleChat.notify(name, url, status, artifactUrl);
             console.info('Sent message.');
         }
         catch (error) {
@@ -2474,21 +2473,19 @@ const textButton = (text, url) => ({
         onClick: { openLink: { url } }
     }
 });
-function notify(repoRef, name, url, status, artifactUrl) {
+function notify(name, url, status, artifactUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         const { owner, repo } = github.context.repo;
-        const { eventName, sha, ref, runId } = github.context;
+        const { eventName, sha, ref, runId, runNumber } = github.context;
         const { number } = github.context.issue;
         const repoUrl = `https://github.com/${owner}/${repo}`;
-        const eventPath = eventName === 'pull_request' ? `/pull/${number}` : `/commit/${sha}`;
-        const eventUrl = `${repoUrl}${eventPath}`;
-        const checksUrl = `${repoUrl}${eventPath}/checks`;
+        const eventPath = eventName === 'pull_request' ? `/pull/${number}` : `/commit/${sha.substring(0, 8)}`;
         const jobUrl = `${repoUrl}/actions/runs/${runId}`;
         const body = {
             cards: [{
                     "header": {
                         "title": repo,
-                        "subtitle": ((repoRef) ? repoRef : ref),
+                        "subtitle": name,
                         "imageUrl": "https://lh3.googleusercontent.com/proxy/p3mSfQtf-xADb2Us8knTTzMHpQwoBKW5JU3ZISKETZMJ72D3uQMJ9Xa2JbRM1vuYVev448pQU2VgOaz0RCMq0GnlfvX20ruFgNdM9XKmDOTlIgw6yocpurQ=s64-c",
                         "imageStyle": "IMAGE"
                     },
@@ -2496,44 +2493,18 @@ function notify(repoRef, name, url, status, artifactUrl) {
                         {
                             widgets: [
                                 {
-                                    "textParagraph": {
-                                        "text": `<b>Commit ID:</b> ${sha.substring(0, 8)}<br><b>Status:</b> <font color="${statusColorPalette[status]}">${statusText[status]}</font><br><b>Event:</b> ${eventName}`
+                                    "keyValue": {
+                                        "topLabel": "Build #",
+                                        "content": `<b>${runNumber}</b> - <b><font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`,
+                                        "button": textButton("JOB DETAILS", jobUrl)
                                     }
                                 },
                                 {
-                                    keyValue: {
-                                        topLabel: "Artifact",
-                                        contentMultiline: "true",
-                                        content: `${name}`,
-                                        button: {
-                                            textButton: {
-                                                text: "GET IT",
-                                                onClick: {
-                                                    openLink: {
-                                                        url: `https://www.google.com/url?q=${artifactUrl}`
-                                                    }
-                                                }
-                                            }
-                                        }
+                                    "keyValue": {
+                                        "topLabel": "Event Ref.",
+                                        "content": eventPath,
+                                        "button": textButton("DOWNLOAD", `https://www.google.com/url?q=${artifactUrl}`)
                                     }
-                                }
-                            ]
-                        },
-                        {
-                            widgets: [
-                                {
-                                    buttons: [
-                                        {
-                                            textButton: {
-                                                text: "JOB DETAILS",
-                                                onClick: {
-                                                    openLink: {
-                                                        url: `${jobUrl}`
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    ]
                                 }
                             ]
                         }
