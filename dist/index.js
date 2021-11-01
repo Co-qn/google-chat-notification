@@ -2486,19 +2486,12 @@ function notify(name, buildNumber, repoRef, url, status, artifactUrl) {
         const body = {
             cards: [{
                     "header": {
-                        "title": `<b>${repo}</b>`,
-                        "subtitle": `<font color="${statusColorPalette[status]}">${statusText[status]}</font>`,
+                        "title": repo,
+                        "subtitle": repoRef,
                         "imageUrl": "https://lh3.googleusercontent.com/proxy/p3mSfQtf-xADb2Us8knTTzMHpQwoBKW5JU3ZISKETZMJ72D3uQMJ9Xa2JbRM1vuYVev448pQU2VgOaz0RCMq0GnlfvX20ruFgNdM9XKmDOTlIgw6yocpurQ=s64-c",
                         "imageStyle": "IMAGE"
                     },
                     sections: [
-                        {
-                            widgets: [{
-                                    textParagraph: {
-                                        text: `<b>${name} <br> <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`
-                                    }
-                                }]
-                        },
                         {
                             widgets: [
                                 {
@@ -2510,7 +2503,7 @@ function notify(name, buildNumber, repoRef, url, status, artifactUrl) {
                                 {
                                     "keyValue": {
                                         "topLabel": "Build #",
-                                        "content": `<b>${buildNumber}</b>`
+                                        "content": `<b>${buildNumber} - <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`
                                     }
                                 },
                                 {
