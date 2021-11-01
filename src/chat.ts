@@ -43,14 +43,14 @@ export async function notify( name: string, buildNumber: string, repoRef: string
           widgets: [
             {
               "keyValue": {
-                "topLabel": "Rif.",
-                "content": repoRef
+                "topLabel": "Ref.",
+                "content": `<b>${repoRef}</b>`
                 }
             },
             {
               "keyValue": {
                 "topLabel": "Build #",
-                "content": buildNumber
+                "content": `<b>${buildNumber}</b>`
               }
             },
             {

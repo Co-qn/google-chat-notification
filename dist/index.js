@@ -2496,14 +2496,14 @@ function notify(name, buildNumber, repoRef, url, status, artifactUrl) {
                             widgets: [
                                 {
                                     "keyValue": {
-                                        "topLabel": "Rif.",
-                                        "content": repoRef
+                                        "topLabel": "Ref.",
+                                        "content": `<b>${repoRef}</b>`
                                     }
                                 },
                                 {
                                     "keyValue": {
                                         "topLabel": "Build #",
-                                        "content": buildNumber
+                                        "content": `<b>${buildNumber}</b>`
                                     }
                                 },
                                 {
