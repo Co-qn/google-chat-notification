@@ -43,14 +43,10 @@ export async function notify( name: string, buildNumber: string, repoRef: string
           widgets: [
             {
               "keyValue": {
-                "topLabel": "Ref.",
-                "content": `<b>${repoRef}</b>`
-                }
-            },
-            {
-              "keyValue": {
                 "topLabel": "Build #",
-                "content": `<b>${buildNumber} - <font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`
+                "content": `<b>${buildNumber}</b> - <b><font color="${statusColorPalette[status]}">${statusText[status]}</font></b>`,
+                "button": textButton("JOB DETAILSY", jobUrl)
+
               }
             },
             {
