@@ -21,7 +21,7 @@ const textButton = (text: string, url: string) => ({
   }
 });
 
-export async function notify(name: string, url: string, status: Status) {
+export async function notify(name: string, url: string, status: Status, issueUrl = "") {
   const { owner, repo } = github.context.repo;
   const { eventName, sha, ref } = github.context;
   const { number } = github.context.issue;
@@ -29,6 +29,9 @@ export async function notify(name: string, url: string, status: Status) {
   const eventPath = eventName === 'pull_request' ? `/pull/${number}` : `/commit/${sha}`;
   const eventUrl = `${repoUrl}${eventPath}`;
   const checksUrl = `${repoUrl}${eventPath}/checks`;
+  const author = github.context.actor;
+  const resource_url = issueUrl === "" ? checksUrl : issueUrl
+  const button_type = issueUrl === "" ? "OPEN CHECKS" : "OPEN ISSUE"
 
   const body = {
     cards: [{
@@ -58,13 +61,16 @@ export async function notify(name: string, url: string, status: Status) {
               }
             },
             {
+              keyValue: { topLabel: "author", content: author }
+            },
+            {
               keyValue: { topLabel: "ref", content: ref }
             }
           ]
         },
         {
           widgets: [{
-            buttons: [textButton("OPEN CHECKS", checksUrl)]
+            buttons: [textButton(button_type, resource_url)]
           }]
         }
       ]
