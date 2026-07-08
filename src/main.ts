@@ -8,10 +8,11 @@ async function run() {
     const url = core.getInput('url', { required: true });
     const status = JobStatus.parse(core.getInput('status', { required: true }));
 
-    core.debug(`input params: name=${name}, status=${status}, url=${url}`);
+    // url は secret のためログに出さない
+    core.debug(`input params: name=${name}, status=${status}`);
 
     await GoogleChat.notify(name, url, status);
-    console.info('Sent message.')
+    core.info('Sent message.')
   } catch (error: unknown) {
     if (error instanceof Error) {
       core.setFailed(error.message);

@@ -9,8 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v5
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: '.tool-versions'
+        cache: 'npm'
 
     - run: npm ci
     - run: npm run build
     - run: npm test
+
+    # dist のコミット漏れを検出する
+    - run: git diff --exit-code dist/
