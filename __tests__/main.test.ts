@@ -1,30 +1,57 @@
-import * as process from 'process'
-import * as cp from 'child_process'
-import * as path from 'path'
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import * as core from '@actions/core';
+import * as GoogleChat from '../src/chat';
 
-test('test', () => {
-  expect(true).toBeTruthy();
+vi.mock('@actions/core', () => ({
+  getInput: vi.fn(),
+  debug: vi.fn(),
+  info: vi.fn(),
+  setFailed: vi.fn(),
+}));
+
+vi.mock('../src/chat', () => ({
+  notify: vi.fn(),
+}));
+
+const inputs: { [key: string]: string } = {};
+
+beforeEach(() => {
+  vi.resetModules();
+  inputs.name = 'Build';
+  inputs.url = 'https://chat.googleapis.com/v1/spaces/XXX/messages?key=YYY';
+  inputs.status = 'success';
+  vi.mocked(core.getInput).mockImplementation((name: string) => inputs[name]);
+  vi.mocked(GoogleChat.notify).mockResolvedValue(undefined);
 });
 
-// test('throws invalid number', async() => {
-//     const input = parseInt('foo', 10);
-//     await expect(wait(input)).rejects.toThrow('milleseconds not a number');
-// });
+// main.ts は import 時に run() を実行するため、モック設定後に動的 import で起動する
+const runMain = async () => {
+  await import('../src/main');
+  await new Promise((resolve) => setImmediate(resolve));
+};
 
-// test('wait 500 ms', async() => {
-//     const start = new Date();
-//     await wait(500);
-//     const end = new Date();
-//     var delta = Math.abs(end.getTime() - start.getTime());
-//     expect(delta).toBeGreaterThan(450);
-// });
+describe('run', () => {
+  it('inputs を読んで notify に渡す', async () => {
+    await runMain();
 
-// // shows how the runner will run a javascript action with env / stdout protocol
-// test('test runs', () => {
-//     process.env['INPUT_MILLISECONDS'] = '500';
-//     const ip = path.join(__dirname, '..', 'lib', 'main.js');
-//     const options: cp.ExecSyncOptions = {
-//         env: process.env
-//     };
-//     console.log(cp.execSync(`node ${ip}`, options).toString());
-// });
+    expect(GoogleChat.notify).toHaveBeenCalledWith('Build', inputs.url, 'success');
+    expect(core.setFailed).not.toHaveBeenCalled();
+  });
+
+  it('status が不正なら setFailed が呼ばれ notify は呼ばれない', async () => {
+    inputs.status = 'skipped';
+
+    await runMain();
+
+    expect(core.setFailed).toHaveBeenCalledWith(expect.stringContaining('Invalid parameter'));
+    expect(GoogleChat.notify).not.toHaveBeenCalled();
+  });
+
+  it('notify が throw したら setFailed にエラーメッセージが渡る', async () => {
+    vi.mocked(GoogleChat.notify).mockRejectedValue(new Error('Google Chat notification failed.'));
+
+    await runMain();
+
+    expect(core.setFailed).toHaveBeenCalledWith('Google Chat notification failed.');
+  });
+});
