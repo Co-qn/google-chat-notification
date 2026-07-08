@@ -117,6 +117,45 @@ describe('notify', () => {
     expect(checksButton.onClick.openLink.url).toBe(`${REPO_URL}/commit/abc1234/checks`);
   });
 
+  it('metadata 付きなら専用 section に decoratedText が並ぶ', async () => {
+    await notify('Deploy', WEBHOOK_URL, 'success', [
+      { label: 'Deploy URL', value: 'https://myapp.example.com' },
+      { label: 'Environment', value: 'production' },
+    ]);
+
+    const deployUrl = findDecoratedText('Deploy URL');
+    const environment = findDecoratedText('Environment');
+    expect(deployUrl.text).toBe('https://myapp.example.com');
+    expect(environment.text).toBe('production');
+    // Repository らの section とは別の専用 section に入る
+    const metadataSection = sentCard().sections.find((section: any) =>
+      section.widgets.some((widget: any) => widget.decoratedText?.topLabel === 'Deploy URL')
+    );
+    expect(metadataSection.widgets).toHaveLength(2);
+  });
+
+  it('URL 値の metadata には OPEN ボタンが付く', async () => {
+    await notify('Deploy', WEBHOOK_URL, 'success', [
+      { label: 'Deploy URL', value: 'https://myapp.example.com' },
+    ]);
+
+    expect(findDecoratedText('Deploy URL').button.onClick.openLink.url).toBe('https://myapp.example.com');
+  });
+
+  it('非 URL 値の metadata には button が付かない', async () => {
+    await notify('Deploy', WEBHOOK_URL, 'success', [
+      { label: 'Environment', value: 'production' },
+    ]);
+
+    expect(findDecoratedText('Environment').button).toBeUndefined();
+  });
+
+  it('metadata 省略時は section 数が従来どおり3つ', async () => {
+    await notify('Build', WEBHOOK_URL, 'success');
+
+    expect(sentCard().sections).toHaveLength(3);
+  });
+
   it('レスポンスが非 2xx なら status とレスポンス body を含む Error を throw する', async () => {
     fetchMock.mockResolvedValue({ ok: false, status: 400, text: async () => 'invalid payload' });
 

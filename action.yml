@@ -11,6 +11,9 @@ inputs:
   status:
     description: 'job status.'
     required: true
+  metadata:
+    description: 'custom metadata to include in the card. multiline "key: value" format.'
+    required: false
 runs:
   using: 'node24'
   main: 'dist/index.js'

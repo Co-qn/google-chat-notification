@@ -1,4 +1,5 @@
 import * as github from '@actions/github';
+import { MetadataEntry } from './metadata';
 import { Status } from './status';
 
 const statusInfo: { [key in Status]: { text: string; color: string; icon: string } } = {
@@ -20,10 +21,22 @@ interface CardContext {
   repoUrl: string;
   eventUrl: string;
   checksUrl: string;
+  metadata: MetadataEntry[];
 }
 
+const isUrl = (value: string) => /^https?:\/\//.test(value);
+
+const metadataWidget = (entry: MetadataEntry) => ({
+  decoratedText: {
+    topLabel: entry.label,
+    text: entry.value,
+    wrapText: true,
+    ...(isUrl(entry.value) ? { button: openLinkButton('OPEN', entry.value) } : {})
+  }
+});
+
 export function buildCard(name: string, status: Status, context: CardContext) {
-  const { owner, repo, eventName, ref, repoUrl, eventUrl, checksUrl } = context;
+  const { owner, repo, eventName, ref, repoUrl, eventUrl, checksUrl, metadata } = context;
   const { text, color, icon } = statusInfo[status];
 
   return {
@@ -71,6 +84,7 @@ export function buildCard(name: string, status: Status, context: CardContext) {
               }
             ]
           },
+          ...(metadata.length > 0 ? [{ widgets: metadata.map(metadataWidget) }] : []),
           {
             widgets: [{
               buttonList: {
@@ -84,7 +98,7 @@ export function buildCard(name: string, status: Status, context: CardContext) {
   };
 }
 
-export async function notify(name: string, url: string, status: Status) {
+export async function notify(name: string, url: string, status: Status, metadata: MetadataEntry[] = []) {
   const { owner, repo } = github.context.repo;
   const { eventName, ref } = github.context;
   const repoUrl = `https://github.com/${owner}/${repo}`;
@@ -94,7 +108,7 @@ export async function notify(name: string, url: string, status: Status) {
   const eventUrl = `${repoUrl}${eventPath}`;
   const checksUrl = `${eventUrl}/checks`;
 
-  const body = buildCard(name, status, { owner, repo, eventName, ref, repoUrl, eventUrl, checksUrl });
+  const body = buildCard(name, status, { owner, repo, eventName, ref, repoUrl, eventUrl, checksUrl, metadata });
 
   const response = await fetch(url, {
     method: 'POST',

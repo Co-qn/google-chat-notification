@@ -29973,8 +29973,17 @@ const openLinkButton = (text, url) => ({
     text,
     onClick: { openLink: { url } }
 });
+const isUrl = (value) => /^https?:\/\//.test(value);
+const metadataWidget = (entry) => ({
+    decoratedText: {
+        topLabel: entry.label,
+        text: entry.value,
+        wrapText: true,
+        ...(isUrl(entry.value) ? { button: openLinkButton('OPEN', entry.value) } : {})
+    }
+});
 function buildCard(name, status, context) {
-    const { owner, repo, eventName, ref, repoUrl, eventUrl, checksUrl } = context;
+    const { owner, repo, eventName, ref, repoUrl, eventUrl, checksUrl, metadata } = context;
     const { text, color, icon } = statusInfo[status];
     return {
         cardsV2: [{
@@ -30021,6 +30030,7 @@ function buildCard(name, status, context) {
                                 }
                             ]
                         },
+                        ...(metadata.length > 0 ? [{ widgets: metadata.map(metadataWidget) }] : []),
                         {
                             widgets: [{
                                     buttonList: {
@@ -30033,7 +30043,7 @@ function buildCard(name, status, context) {
             }]
     };
 }
-async function notify(name, url, status) {
+async function notify(name, url, status, metadata = []) {
     const { owner, repo } = github.context.repo;
     const { eventName, ref } = github.context;
     const repoUrl = `https://github.com/${owner}/${repo}`;
@@ -30042,7 +30052,7 @@ async function notify(name, url, status) {
         : `/commit/${github.context.sha}`;
     const eventUrl = `${repoUrl}${eventPath}`;
     const checksUrl = `${eventUrl}/checks`;
-    const body = buildCard(name, status, { owner, repo, eventName, ref, repoUrl, eventUrl, checksUrl });
+    const body = buildCard(name, status, { owner, repo, eventName, ref, repoUrl, eventUrl, checksUrl, metadata });
     const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=UTF-8' },
@@ -30098,15 +30108,17 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(7484));
 const JobStatus = __importStar(__nccwpck_require__(5565));
+const Metadata = __importStar(__nccwpck_require__(3630));
 const GoogleChat = __importStar(__nccwpck_require__(3981));
 async function run() {
     try {
         const name = core.getInput('name', { required: true });
         const url = core.getInput('url', { required: true });
         const status = JobStatus.parse(core.getInput('status', { required: true }));
+        const metadata = Metadata.parse(core.getInput('metadata'));
         // url は secret のためログに出さない
         core.debug(`input params: name=${name}, status=${status}`);
-        await GoogleChat.notify(name, url, status);
+        await GoogleChat.notify(name, url, status, metadata);
         core.info('Sent message.');
     }
     catch (error) {
@@ -30122,6 +30134,30 @@ async function run() {
     }
 }
 run();
+
+
+/***/ }),
+
+/***/ 3630:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parse = parse;
+function parse(input) {
+    return input
+        .split('\n')
+        .filter(line => line.trim() !== '')
+        .map(line => {
+        const separatorIndex = line.indexOf(':');
+        const label = separatorIndex >= 0 ? line.slice(0, separatorIndex).trim() : '';
+        if (label === '') {
+            throw Error(`Invalid metadata line. Expected "key: value" format. line=${line}`);
+        }
+        return { label, value: line.slice(separatorIndex + 1).trim() };
+    });
+}
 
 
 /***/ }),
