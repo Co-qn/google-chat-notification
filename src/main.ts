@@ -1,5 +1,6 @@
 import * as core from '@actions/core';
 import * as JobStatus from './status';
+import * as Metadata from './metadata';
 import * as GoogleChat from './chat';
 
 async function run() {
@@ -7,11 +8,12 @@ async function run() {
     const name = core.getInput('name', { required: true });
     const url = core.getInput('url', { required: true });
     const status = JobStatus.parse(core.getInput('status', { required: true }));
+    const metadata = Metadata.parse(core.getInput('metadata'));
 
     // url は secret のためログに出さない
     core.debug(`input params: name=${name}, status=${status}`);
 
-    await GoogleChat.notify(name, url, status);
+    await GoogleChat.notify(name, url, status, metadata);
     core.info('Sent message.')
   } catch (error: unknown) {
     if (error instanceof Error) {

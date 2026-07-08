@@ -20,6 +20,7 @@ beforeEach(() => {
   inputs.name = 'Build';
   inputs.url = 'https://chat.googleapis.com/v1/spaces/XXX/messages?key=YYY';
   inputs.status = 'success';
+  inputs.metadata = '';
   vi.mocked(core.getInput).mockImplementation((name: string) => inputs[name]);
   vi.mocked(GoogleChat.notify).mockResolvedValue(undefined);
 });
@@ -34,8 +35,28 @@ describe('run', () => {
   it('inputs を読んで notify に渡す', async () => {
     await runMain();
 
-    expect(GoogleChat.notify).toHaveBeenCalledWith('Build', inputs.url, 'success');
+    expect(GoogleChat.notify).toHaveBeenCalledWith('Build', inputs.url, 'success', []);
     expect(core.setFailed).not.toHaveBeenCalled();
+  });
+
+  it('metadata input をパースして notify に渡す', async () => {
+    inputs.metadata = 'Deploy URL: https://myapp.example.com\nEnvironment: production';
+
+    await runMain();
+
+    expect(GoogleChat.notify).toHaveBeenCalledWith('Build', inputs.url, 'success', [
+      { label: 'Deploy URL', value: 'https://myapp.example.com' },
+      { label: 'Environment', value: 'production' },
+    ]);
+  });
+
+  it('metadata が不正なら setFailed が呼ばれ notify は呼ばれない', async () => {
+    inputs.metadata = 'no-colon-line';
+
+    await runMain();
+
+    expect(core.setFailed).toHaveBeenCalledWith(expect.stringContaining('Invalid metadata line'));
+    expect(GoogleChat.notify).not.toHaveBeenCalled();
   });
 
   it('status が不正なら setFailed が呼ばれ notify は呼ばれない', async () => {
